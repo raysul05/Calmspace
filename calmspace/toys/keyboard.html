@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Mechanical Keyboard — CalmSpace</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <main class="container">
+    <div class="toy-header">
+      <div>
+        <h2>Mechanical Keyboard</h2>
+        <div class="note">Click keys to hear mechanical clicks.</div>
+      </div>
+      <div class="controls">
+        <div id="timerKey" class="timer" data-start-timer="600">10:00</div>
+        <a class="btn" href="../index.html">Back</a>
+      </div>
+    </div>
+
+    <div class="keyboard" id="keyboard">
+      <!-- keys will be injected -->
+    </div>
+
+  </main>
+
+  <script src="../js/sound.js"></script>
+  <script src="../js/timer.js"></script>
+  <script>
+  (function(){
+    const layout = "QWERTYUIOPASDFGHJKLZXCVBNM";
+    const keyboard = document.getElementById('keyboard');
+    for(let i=0;i<layout.length;i++){
+      const k = document.createElement('div');
+      k.className = 'key';
+      k.textContent = layout[i];
+      k.addEventListener('click', ()=>{
+        Sounds.play('type');
+        // small pressed effect
+        k.style.transform='translateY(4px)';
+        setTimeout(()=> k.style.transform='translateY(0px)', 120);
+      });
+      keyboard.appendChild(k);
+    }
+  })();
+  </script>
+</body>
+</html>
