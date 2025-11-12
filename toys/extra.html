@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Color Ripple — CalmSpace</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .ripple-stage{width:100%;max-width:900px}
+    .ripple-circle{position:absolute;border-radius:50%;opacity:0.24;transform:scale(0);animation:ripple 900ms ease-out forwards}
+    @keyframes ripple{to{transform:scale(6);opacity:0}}
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="toy-header">
+      <div>
+        <h2>Color Ripple</h2>
+        <div class="note">Click the stage to create soft color ripples.</div>
+      </div>
+      <div class="controls">
+        <div id="timerRipple" class="timer" data-start-timer="600">10:00</div>
+        <a class="btn" href="../index.html">Back</a>
+      </div>
+    </div>
+
+    <div class="ripple-stage" id="stage"></div>
+
+  </main>
+
+  <script src="../js/timer.js"></script>
+  <script>
+  const stage = document.getElementById('stage');
+  const colors = ['#a8edea','#fed6e3','#c7f9cc','#fef9c3','#dbe7ff'];
+  stage.addEventListener('click', function(e){
+    const r = document.createElement('div');
+    r.className = 'ripple-circle';
+    const size = Math.max(stage.clientWidth, stage.clientHeight) * 0.25;
+    r.style.width = r.style.height = size + 'px';
+    r.style.left = (e.clientX - stage.getBoundingClientRect().left - size/2) + 'px';
+    r.style.top = (e.clientY - stage.getBoundingClientRect().top - size/2) + 'px';
+    r.style.background = colors[Math.floor(Math.random()*colors.length)];
+    stage.appendChild(r);
+    setTimeout(()=> r.remove(), 1200);
+  });
+  </script>
+</body>
+</html>
